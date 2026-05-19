@@ -90,7 +90,8 @@ const loginUser = async (req, res) => {
             res.status(401).json({ message: 'Invalid phone number or password' });
         }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Login Error Detail: ", error);
+        res.status(500).json({ message: "Server Error during login", error: error.message, stack: error.stack });
     }
 };
 

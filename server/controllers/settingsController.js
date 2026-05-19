@@ -15,9 +15,13 @@ const getSettingsDoc = async () => {
 const getPortalStatus = async (req, res) => {
     try {
         const settings = await getSettingsDoc();
-        res.status(200).json({ isPortalOpen: settings.isPortalOpen });
+        res.status(200).json({ 
+            isPortalOpen: settings.isPortalOpen,
+            message: !settings.isPortalOpen ? "Deliveries are not being taken right now. Please contact 999999999." : ""
+        });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Portal Status Error Detail: ", error);
+        res.status(500).json({ message: "Server Error during portal status", error: error.message, stack: error.stack });
     }
 };
 
